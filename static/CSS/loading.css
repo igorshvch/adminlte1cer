@@ -1,0 +1,122 @@
+:root {
+    --cb-f: cubic-bezier(.79,.02,.3,.99);
+    --anim-ddelay: 0.10s;
+    --circl-shape: 12.5px;
+    --br-rad: 50%;
+    --offset: 25%;
+    --transf-orig: 50px;
+    --bg-clr: #007bff;
+}
+
+.pop-up-loading {
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:200px;  /* adjust as per your needs */
+    height:200px;   /* adjust as per your needs */
+    margin-left:-100px;   /* negative half of width above */
+    margin-top:-100px;   /* negative half of height above */
+    z-index: 2;
+}
+
+#moveable {
+    width: var(--circl-shape);
+    height: var(--circl-shape);
+    background-color: var(--bg-clr);
+    border-radius: var(--br-rad);
+    top: var(--offset);
+    left: var(--offset);
+    position: absolute;
+    animation-name: example;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: var(--cb-f);
+    transform-origin: var(--transf-orig) var(--transf-orig);
+}
+#moveable1 {
+    width: var(--circl-shape);
+    height: var(--circl-shape);
+    background-color: var(--bg-clr);
+    border-radius: var(--br-rad);
+    top: var(--offset);
+    left: var(--offset);
+    position: absolute;
+    animation-name: example;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: var(--cb-f);
+    transform-origin: var(--transf-orig) var(--transf-orig);
+    animation-delay: calc(var(--anim-ddelay)*1);
+}
+#moveable2 {
+    width: var(--circl-shape);
+    height: var(--circl-shape);
+    background-color: var(--bg-clr);
+    border-radius: var(--br-rad);
+    top: var(--offset);
+    left: var(--offset);
+    position: absolute;
+    animation-name: example;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: var(--cb-f);
+    transform-origin: var(--transf-orig) var(--transf-orig);
+    animation-delay: calc(var(--anim-ddelay)*2);
+}
+#moveable3 {
+    width: var(--circl-shape);
+    height: var(--circl-shape);
+    background-color: var(--bg-clr);
+    border-radius: var(--br-rad);
+    top: var(--offset);
+    left: var(--offset);
+    position: absolute;
+    animation-name: example;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: var(--cb-f);
+    transform-origin: var(--transf-orig) var(--transf-orig);
+    animation-delay: calc(var(--anim-ddelay)*3);
+}
+#moveable4 {
+    width: var(--circl-shape);
+    height: var(--circl-shape);
+    background-color: var(--bg-clr);
+    border-radius: var(--br-rad);
+    top: var(--offset);
+    left: var(--offset);
+    position: absolute;
+    animation-name: example;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: var(--cb-f);
+    transform-origin: var(--transf-orig) var(--transf-orig);
+    animation-delay: calc(var(--anim-ddelay)*4);
+}
+#moveable5 {
+    width: var(--circl-shape);
+    height: var(--circl-shape);
+    background-color: var(--bg-clr);
+    border-radius: var(--br-rad);
+    top: var(--offset);
+    left: var(--offset);
+    position: absolute;
+    animation-name: example;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: var(--cb-f);
+    transform-origin: var(--transf-orig) var(--transf-orig);
+    animation-delay: calc(var(--anim-ddelay)*5);
+}
+
+@keyframes example {
+    0% {
+        transform: rotate(0deg);
+    }
+    80% {
+        transform: rotate(360deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+  }
