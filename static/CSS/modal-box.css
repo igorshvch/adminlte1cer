@@ -19,9 +19,10 @@
     padding: 20px;
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
+    text-align: center;
 }
 
-#pop-up-text {
+#pop-up-box-message-text {
     margin-top: 1rem;
     text-align: center;
 }
@@ -32,11 +33,15 @@
     float: right;
     font-size: 28px;
     font-weight: bold;
-    text-align: left;
+    text-align: right;
 }
 
 .close:hover, .close:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+#pop-up-box-message-text {
+    margin-top: 0px;
 }

@@ -2,23 +2,49 @@ import {
     URL_TASKLIST,
     URL_ERROR,
     API_LOGIN,
+    API_TEST_CURRENT_TOKEN,
     redirectToNewPage
 } from './locations/locations.js'
 
 import {
-    callPOSTthenDo
-} from './servercalls/serverCalls.js'
+    popUpBoxMessage,
+    popUpBoxLoading,
+    messageText
+} from './components/popUpBoxes.js'
+
+const userNameField = document.querySelector("#grab-input-email");
+const passwordField = document.querySelector("#grab-input-password");
+const STORAGE = localStorage.getItem('token') ? localStorage : sessionStorage;
+const TOKEN = STORAGE.getItem('token');
+
+if (TOKEN) {
+    popUpBoxLoading.style.display = "block";
+    userNameField.value = STORAGE.getItem('username');
+    passwordField.value = "*".repeat(parseInt(STORAGE.getItem('passwordLength')));
+    fetch (API_TEST_CURRENT_TOKEN, {
+        method: "GET",
+        headers: {
+            "Authorization": TOKEN,
+        }
+    })
+    .then((resp)=>{
+        let data = resp.json();
+        return data;
+    })
+    .then((data) => {
+        if (data.error) {
+            STORAGE.clear();
+            redirectToNewPage(URL_ERROR);
+        } else {
+            STORAGE.setItem('userName', data.userName);
+            redirectToNewPage(URL_TASKLIST)
+        }
+    })
+}
 
 ///////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////
-
-let popUpBoxMessage = document.querySelector("#pop-up-box");
-let closeBtn = document.querySelector("#close-btn");
-let popUpBoxLoading = document.querySelector("#pop-up-box-loading");
-
-let userNameField = document.querySelector("#grab-input-email");
-let passwordField = document.querySelector("#grab-input-password");
 
 function getLogInData () {
     const name = userNameField;
@@ -27,16 +53,15 @@ function getLogInData () {
         username: name.value,
         password: pass.value
     };
-    console.log(data);
     return data
 }
 
 let loginBtn = document.querySelector("#login-btn")
 loginBtn.addEventListener("click", (e)=>{
     e.preventDefault();
-    let data;
     let externalData = getLogInData();
     if (!externalData.username || !externalData.password) {
+        messageText.append("Укажите корректные данные для авторизации");
         popUpBoxMessage.style.display = "block";
         return 0;
     }
@@ -53,32 +78,26 @@ loginBtn.addEventListener("click", (e)=>{
         return data;
     }).then((data) => {
         if (data.error) {
-            redirectToNewPage(URL_ERROR);   
+            console.log(data);
+            console.log(messageText);
+            messageText.append(data.errortext);
+            console.log(messageText);
+            popUpBoxMessage.style.display = "block";
+            popUpBoxLoading.style.display = "none";
+            //redirectToNewPage(URL_ERROR);
         }
         else {
-            sessionStorage.setItem("token", data.token);
-            sessionStorage.setItem("username", externalData.username);
-            sessionStorage.setItem("passwordLength", externalData.password.split('').length);
+            STORAGE.setItem("token", data.token);
+            STORAGE.setItem('userName', data.userName);
+            STORAGE.setItem('userId', data.userId ? data.userId : data.UserId);
+            STORAGE.setItem('companyId', data.companyId);
+            STORAGE.setItem('subdivisionId', data.subdivisionId);
+            STORAGE.setItem("username", externalData.username);
+            STORAGE.setItem("passwordLength", externalData.password.split('').length);
             const d = new Date();
             const timeStapm = d.toISOString();
-            sessionStorage.setItem("time", timeStapm);
-            console.log("token:", data.token);
-            console.log("timeStamp:", timeStapm);
+            STORAGE.setItem("time", timeStapm);
             redirectToNewPage(URL_TASKLIST);
         }
     })
-})
-
-
-closeBtn.addEventListener("click", (e)=>{
-    e.preventDefault();
-    popUpBoxMessage.style.display = "none";
-})
-
-
-window.addEventListener("click", (e) => {
-    if (e.target == popUpBoxMessage) {
-        console.log(e.target);
-        popUpBoxMessage.style.display = "none";
-    }
 })

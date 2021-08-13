@@ -9,20 +9,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>1CER.RU</title>
 
-  <script>
-    function redirectIfUnAthorized(key="token", url_page="http://localhost:3000") {
-      if (localStorage.getItem(key)) {
-          console.log("using localStorage");
-      } else if (sessionStorage.getItem(key)) {
-          console.log("using localStorage");
-      } else {
-          console.error("failed to use WebStorage, redirecting...");
-          location.href = url_page;
-      }
-    }
-    redirectIfUnAthorized();
-  </script>
-
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
@@ -35,6 +21,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="./dist/css/adminlte.min.css">
   <!-- Custom styles-->
   <link rel="stylesheet" href="./static/CSS/custom.css">
+  <link rel="stylesheet" href="./static/CSS/modal-box.css">
+  <link rel="stylesheet" href="./static/CSS/loading.css">
   <style id="__web-inspector-hide-shortcut-style__">
     .__web-inspector-hide-shortcut__, .__web-inspector-hide-shortcut__ *, .__web-inspector-hidebefore-shortcut__::before, .__web-inspector-hideafter-shortcut__::after
     {
@@ -43,12 +31,55 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </style>
 </head>
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
-  <!-- Preloader
-  <div class="preloader">
-    <img src="./static/monkey.jpg" alt="1CER.RU">
+  <div id="pop-up-box-loading" class="modal" style="display: block;">
+    <!-- Modal content -->
+    <div class="pop-up-loading">
+      <div id="moveable">
+      </div>
+      <div id="moveable1">
+      </div>
+      <div id="moveable2">
+      </div>
+      <div id="moveable3">
+      </div>
+      <div id="moveable4">
+      </div>
+      <div id="moveable5">
+      </div>
+    </div>
   </div>
-  -->
+  <script>
+    const STORAGE = localStorage.getItem('token') ? localStorage : sessionStorage;
+    const TOKEN = STORAGE.getItem('token');
+    const popUpBoxLoading = document.querySelector("#pop-up-box-loading");
+  
+    if (TOKEN) {
+        popUpBoxLoading.style.display = "block";
+        fetch (
+          '/api/user/current', 
+          {
+            method: "GET",
+            headers: {
+                "Authorization": TOKEN,
+            }
+          })
+          .then((resp)=>{
+              let data = resp.json();
+              return data;
+          })
+          .then((data) => {
+              if (data.error) {
+                STORAGE.clear();
+                location.href = "/";
+              }
+          })
+    } else {
+      location.href = "/";
+    }
+  </script>
+
+
+<div class="wrapper">
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -64,150 +95,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a class="brand-link">
+    <a class="brand-link" id="brand-link">
       <!--<img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">-->
-      <span class="brand-text font-weight-light">1CER.RU</span>
+      <span class="brand-text font-weight-light" style="text-align: center;">1CER.RU</span>
     </a>
-    <!--
-    <div class="sidebar-custom">
-      <a href="#" class="btn btn-primary hide-on-collapse">
-        <i class="nav-icon fas fa-plus-circle"></i>
-        Добавить задачу
-      </a>
-    </div>
-    -->
+
     <div class="sidebar">
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar nav-child-indent flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar nav-child-indent flex-column" data-widget="treeview" role="menu" data-accordion="false" id="menu-btn-container">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          
-          <!-- Добавить задачу -->
-          <li class="nav-item">
-            <a id="add-new-task" href="#" class="nav-link active">
-              <i class="nav-icon fas fa-plus-circle"></i>
-              <p>
-                Добавить задачу
-              </p>
-            </a>
-          </li>
-          <!-- ./Добавить задачу -->
 
-          <!-- Список_задач -->
-          <li class="nav-item menu-is-opening menu-open">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-clipboard-list"></i>
-              <p>
-                Список задач
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview" style="display: block;">
-              <li class="nav-item">
-                <a href="#" class="nav-link" id="nav-link-tasks-actual">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>
-                    Актуальные
-                    <span class="badge badge-info left bg-primary">2</span>
-                    <span class="badge badge-info left bg-danger">2</span>
-                    <span class="badge badge-info left bg-success">2</span>
-                    <span class="badge badge-info left bg-purple">2</span>
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link" id="nav-link-tasks-agree">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>К согласованию</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link" id="nav-link-tasks-all">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>
-                    Все
-                    <span class="badge badge-info left bg-navy" id="total-tasks">8</span>
-                  </p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <!-- ./Список_задач-->
-
-          <!-- Расчеты -->
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-file-invoice-dollar"></i>
-              <p>
-                Расчеты
-              </p>
-            </a>
-          </li>
-          <!-- ./Расчеты -->
-
-          <!-- Настройки -->
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-cog"></i>
-              <p>
-                Настройки
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/forms/general.html" class="nav-link">
-                  <i class="fas fa-angle-right left"></i>
-                  <i class="far fa-address-card nav-icon"></i>
-                  <i class="fas fa-angle-left right"></i>
-                  <p>Пользователи</p>
-                </a>
-                <!-- Проба -->
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="pages/forms/general.html" class="nav-link">
-                      <i class="fas fa-angle-right left"></i>
-                      <i class="fas fa-angle-right left"></i>
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Проба1</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="pages/forms/advanced.html" class="nav-link">
-                      <i class="fas fa-angle-right left"></i>
-                      <i class="fas fa-angle-right left"></i>
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Проба2</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="pages/forms/editors.html" class="nav-link">
-                      <i class="fas fa-angle-right left"></i>
-                      <i class="fas fa-angle-right left"></i>
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Проба3</p>
-                    </a>
-                  </li>
-                </ul>
-                <!-- ./Проба -->
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/advanced.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Карточки компании</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/editors.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Конфигурация</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <!-- ./Настройки -->
         </ul>
       </nav>
+    </div>
+    <div class="sidebar">
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar nav-child-indent flex-column" data-widget="treeview" role="menu" data-accordion="false" id=logout-btn>
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+
+        </ul>
+      </nav>
+
     </div>
     
   </aside>
@@ -219,7 +129,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Актуальные задачи</h1>
+            <h1 class="m-0" id="main-header"></h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -236,8 +146,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <div class="row">
                     <div class="col-sm-12">
                       <div id="overflow_endpoint">
-                        <table id="main_tasks_table" class="table table-bordered table-hover dataTable dtr-inline" role="grid" aria-describedby="main_tasks_table_info">
-                        </table>
                       </div>
                     </div>
                   </div>
@@ -259,8 +167,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
     <div class="p-3">
-      <h5>Title</h5>
-      <p>Sidebar content</p>
+      <h5></h5>
+      <p></p>
     </div>
   </aside>
   <!-- /.control-sidebar -->
@@ -270,7 +178,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
-
 <!-- jQuery -->
 <script src="./plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->

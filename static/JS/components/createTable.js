@@ -1,10 +1,19 @@
+import {
+    URL_VIEW_TASK_CARD,
+    redirectToNewPage,
+} from '../locations/locations.js'
+
 export function createTable(data) {
     let header, footer, colNameStore;
-    let table = document.querySelector("#main_tasks_table");
+    let table = document.createElement("table");
+    table.id = "main_tasks_table";
+    table.classList.add("table", "table-bordered", "table-hover", "dataTable", "dtr-inline");
+    table.role = "grid";
+    table.ariaDescribedby = "main_tasks_table_info";
     [header, colNameStore] = createHeaderFooter(data, "head");
     table.append(header);
-    [footer, colNameStore] = createHeaderFooter(data, "foot");
-    table.append(footer);
+    //[footer, colNameStore] = createHeaderFooter(data, "foot");
+    //table.append(footer);
     let tbody = createRow(data.list, colNameStore, badges)
     table.append(tbody);
     return table;
@@ -30,6 +39,7 @@ function createHeaderFooter(data, pos){
 function createRow(data_object, colNameStore, badges) {
     let tbody = document.createElement("tbody");
     for (let row_data of data_object) {
+        let rowIdFlag = false;
         let row = document.createElement("tr");
         for (let key of colNameStore) {
             let cell = document.createElement('td');
@@ -40,6 +50,18 @@ function createRow(data_object, colNameStore, badges) {
                 cell.append(row_data[key]);
             }
             row.append(cell);
+            if (!rowIdFlag) {
+                row.id = row_data["id"]
+                row.addEventListener("click", (e)=> {
+                    let idn = e.target.parentNode.id;
+                    sessionStorage.setItem("currentTask", idn);
+                    redirectToNewPage(URL_VIEW_TASK_CARD+"/"+idn);
+                });
+                rowIdFlag = true;
+            }
+        }
+        if (row_data.isNewMessages) {
+            row.classList.add("unread-messages");
         }
         tbody.append(row);
     }
