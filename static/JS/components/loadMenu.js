@@ -4,7 +4,6 @@ import {
 
 import {
     STORAGE,
-    TASK_TYPES,
     TOKEN
 } from './storageAPI.js'
 
@@ -15,25 +14,6 @@ import {
 
 const taskListMenu = document.querySelector("#task-list-menu");
 const taskListMenuInnerTree = document.querySelector("#task-list-menu-inner");
-
-export function btnFunctionInTaskView(preBtnObj) {
-    if (preBtnObj["heading"] === "Актуальные") {
-        STORAGE.setItem("tasksViewHeader", TASK_TYPES.actual.header);
-        STORAGE.setItem("tasksView", TASK_TYPES.actual.url);
-        STORAGE.setItem("tasksViewName", TASK_TYPES.actual.name);
-    }
-    else if (preBtnObj["heading"] === "К согласованию") {
-        STORAGE.setItem("tasksViewHeader", TASK_TYPES.agreeOnAPrice.header);
-        STORAGE.setItem("tasksView", TASK_TYPES.agreeOnAPrice.url);
-        STORAGE.setItem("tasksViewName", TASK_TYPES.agreeOnAPrice.name);
-    }
-    else if (preBtnObj["heading"] === "Все") {
-        STORAGE.setItem("tasksViewHeader", TASK_TYPES.all.header);
-        STORAGE.setItem("tasksView", TASK_TYPES.all.url);
-        STORAGE.setItem("tasksViewName", TASK_TYPES.all.name);
-    }
-    redirectToNewPage(URL_TASKLIST);
-}
 
 export function loadMenu(url, btnFunction, stopLoadingAnimation=true) {
     popUpBoxLoading.style.display = "block";

@@ -1,7 +1,7 @@
 
 export const URL_LOCALHOST = "/";
 
-export const URL_ERROR = `${URL_LOCALHOST}error`;
+export const URL_INFO = `${URL_LOCALHOST}info`;
 export const URL_TASKLIST = `${URL_LOCALHOST}tasklist`;
 export const URL_NEW_TASK_CARD = `${URL_LOCALHOST}task_new`;
 export const URL_VIEW_TASK_CARD = `${URL_LOCALHOST}ticket/view`;

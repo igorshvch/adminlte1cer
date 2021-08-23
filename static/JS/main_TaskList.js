@@ -9,8 +9,7 @@ import {
 } from './components/commonBtns.js'
 
 import {
-    STORAGE,
-    TASK_TYPES
+    STORAGE
 } from './components/storageAPI.js'
 
 import {
