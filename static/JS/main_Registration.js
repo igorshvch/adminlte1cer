@@ -52,12 +52,12 @@ REGISTERBUTTON.addEventListener("click", (e)=> {
             'Connection': 'keep-alive'
         },
         body: JSON.stringify({
-            userName: "вася", //RF_NAME.value,
-            mail: "111@113", //RF_EMAIL.value,
-            password: "qwerty", //RF_PASSWORD.value,
-            passwordConfirm: "qwerty", //RF_PASSWORD_CONFIRM.value,
-            //noSendingMail: true,
-            //noCheckEmail: true
+            userName: RF_NAME.value,
+            mail: RF_EMAIL.value,
+            password: RF_PASSWORD.value,
+            passwordConfirm: RF_PASSWORD_CONFIRM.value,
+            noSendingMail: true,
+            noCheckEmail: true
         })
     }).then((resp)=> {
         let data = resp.json();
