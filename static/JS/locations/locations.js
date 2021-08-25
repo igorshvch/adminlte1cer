@@ -20,6 +20,7 @@ export const API_ADD_FILE = `${URL_PROXI_API}ticket/addFile`;
 export const API_ADD_NEW_TASK = `${URL_PROXI_API}ticket/save`;
 export const API_OPEN_TASK = `${URL_PROXI_API}ticket/open`;
 export const API_REMOVE_FILE = `${URL_PROXI_API}ticket/removeFile`
+export const API_REGISTRATION_COMPANY = `${URL_PROXI_API}registration/company`;
 
 export const API_CHAT_UPDATE = `${URL_PROXI_API}chat/update`;
 export const API_CHAT_SEND_MESSAGE = `${URL_PROXI_API}chat/send`;

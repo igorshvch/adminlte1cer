@@ -1,6 +1,8 @@
 export const STORAGE = localStorage.getItem('token') ? localStorage : sessionStorage;
 export const TOKEN = STORAGE.getItem('token');
 
+///////////////////////////////////////////////////
+
 export const STORAGE_INFOPAGE_HEADER = STORAGE.getItem('infopage_header');
 export const STORAGE_INFOPAGE_BODY = STORAGE.getItem('infopage_body');
 

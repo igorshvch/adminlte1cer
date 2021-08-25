@@ -37,7 +37,7 @@ if (TOKEN) {
     .then((data) => {
         if (data.error) {
             STORAGE.clear();
-            redirectToNewPage(URL_ERROR);
+            redirectToNewPage(URL_INFO);
         } else {
             STORAGE.setItem('userName', data.userName);
             redirectToNewPage(URL_TASKLIST)
@@ -53,7 +53,7 @@ function getLogInData () {
     const name = userNameField;
     const pass = passwordField;
     const data = {
-        userEmail: name.value,
+        username: name.value,
         password: pass.value
     };
     return data
@@ -64,7 +64,7 @@ loginBtn.addEventListener("click", (e)=>{
     e.preventDefault();
     messageText.innerHTML = "";
     let externalData = getLogInData();
-    if (!externalData.userEmail || !externalData.password) {
+    if (!externalData.username || !externalData.password) {
         messageText.append("Укажите корректные данные для авторизации");
         popUpBoxMessage.style.display = "block";
         return 0;

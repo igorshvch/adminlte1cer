@@ -13,6 +13,10 @@
   <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <!-- Custom styles-->
+  <link rel="stylesheet" href="./static/CSS/modal-box.css">
+  <link rel="stylesheet" href="./static/CSS/loading.css">
+  <link rel="stylesheet" href="./static/CSS/custom.css">
 </head>
 <body class="hold-transition register-page">
 <div class="register-box" >
@@ -22,43 +26,47 @@
 
   <div class="card">
     <div class="card-body register-card-body">
-      <p class="login-box-msg"><b>Регистрация</b></p>
+      <p class="login-box-msg" style="padding: 0px 20px;"><b>Регистрация</b></p>
 
       <form action="../../index.html" method="post">
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="ФИО">
+        <div class="input-group mb-3" style="margin-top: 16px; margin-bottom: 0px;">
+          <input type="text" class="form-control" placeholder="ФИО" id="reg-form-name">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
             </div>
           </div>
         </div>
-        <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Электронная почта">
+        <div class="custom-empty" id="warning-01"></div>
+        <div class="input-group mb-3" style="margin-top: 16px; margin-bottom: 0px;">
+          <input type="email" class="form-control" placeholder="Электронная почта" id="reg-form-email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
             </div>
           </div>
         </div>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Пароль">
+        <div class="custom-empty" id="warning-02"></div>
+        <div class="input-group mb-3" style="margin-top: 16px; margin-bottom: 0px;">
+          <input type="password" class="form-control" placeholder="Пароль" id="reg-form-password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
             </div>
           </div>
         </div>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Повторить пароль">
+        <div class="custom-empty" id="warning-03"></div>
+        <div class="input-group mb-3" style="margin-top: 16px; margin-bottom: 0px;">
+          <input type="password" class="form-control" placeholder="Повторить пароль" id="reg-form-password-confirm">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
             </div>
           </div>
         </div>
+        <div class="custom-empty" id="warning-04"></div>
         <div class="row">
-          <div class="col-12">
+          <div class="col-12" style="margin-top: 16px;">
             <div class="icheck-primary">
               <input type="checkbox" id="agreeTerms" name="terms" value="agree">
               <label for="agreeTerms" style="font-weight:normal; font-size: 0.9rem;">
@@ -82,6 +90,23 @@
     </div>
     <!-- /.form-box -->
   </div><!-- /.card -->
+</div>
+<div id="pop-up-box-loading" class="modal">
+  <!-- Modal content -->
+  <div class="pop-up-loading">
+    <div id="moveable">
+    </div>
+    <div id="moveable1">
+    </div>
+    <div id="moveable2">
+    </div>
+    <div id="moveable3">
+    </div>
+    <div id="moveable4">
+    </div>
+    <div id="moveable5">
+    </div>
+  </div>
 </div>
 <!-- /.register-box -->
 
