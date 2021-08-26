@@ -12,6 +12,10 @@ import {
     popUpBoxLoading,
 } from './components/popUpBoxes.js'
 
+import {
+    redirectToInfoPage
+} from './components/infoPageRedirect.js'
+
 const RF_NAME = document.querySelector("#reg-form-name");
 const RF_EMAIL = document.querySelector("#reg-form-email");
 const RF_PASSWORD = document.querySelector("#reg-form-password");
@@ -46,7 +50,6 @@ REGISTERBUTTON.addEventListener("click", (e)=> {
         headers: {
             'Content-Type': 'application/json',
             'Connection': 'keep-alive',
-            'Content-Type': 'text/plain',
             'Accept': '*/*',
             'Accept-Encoding': 'gzip, deflate, br',
             'Connection': 'keep-alive'
@@ -56,7 +59,6 @@ REGISTERBUTTON.addEventListener("click", (e)=> {
             mail: RF_EMAIL.value,
             password: RF_PASSWORD.value,
             passwordConfirm: RF_PASSWORD_CONFIRM.value,
-            noSendingMail: true,
             noCheckEmail: true
         })
     }).then((resp)=> {
@@ -64,9 +66,7 @@ REGISTERBUTTON.addEventListener("click", (e)=> {
         return data
     }).then((data)=>{
         if (data.errorPageRedirect) {
-            STORAGE.setItem('infopage_header', data.errorPageHeading);
-            STORAGE.setItem('infopage_body', data.errorPageText);
-            redirectToNewPage(URL_INFO);
+            redirectToInfoPage(data)
         }
         if (data.error) {
             processError(data.errorFields);

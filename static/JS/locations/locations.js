@@ -2,6 +2,7 @@
 export const URL_LOCALHOST = "/";
 
 export const URL_INFO = `${URL_LOCALHOST}info`;
+export const URL_COMPANY_SETTINGS = `${URL_LOCALHOST}company/settings`;
 export const URL_TASKLIST = `${URL_LOCALHOST}tasklist`;
 export const URL_NEW_TASK_CARD = `${URL_LOCALHOST}task_new`;
 export const URL_VIEW_TASK_CARD = `${URL_LOCALHOST}ticket/view`;
@@ -21,6 +22,7 @@ export const API_ADD_NEW_TASK = `${URL_PROXI_API}ticket/save`;
 export const API_OPEN_TASK = `${URL_PROXI_API}ticket/open`;
 export const API_REMOVE_FILE = `${URL_PROXI_API}ticket/removeFile`
 export const API_REGISTRATION_COMPANY = `${URL_PROXI_API}registration/company`;
+export const API_REGISTRATION_ACTIVATION = `${URL_PROXI_API}registration_activation`;
 
 export const API_CHAT_UPDATE = `${URL_PROXI_API}chat/update`;
 export const API_CHAT_SEND_MESSAGE = `${URL_PROXI_API}chat/send`;

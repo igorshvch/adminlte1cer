@@ -14,5 +14,3 @@ if (STORAGE_INFOPAGE_BODY) {
     body.innerHTML = '';
     body.append(STORAGE_INFOPAGE_BODY);
 }
-
-console.log("Text");
