@@ -59,7 +59,6 @@ REGISTERBUTTON.addEventListener("click", (e)=> {
             mail: RF_EMAIL.value,
             password: RF_PASSWORD.value,
             passwordConfirm: RF_PASSWORD_CONFIRM.value,
-            noCheckEmail: true
         })
     }).then((resp)=> {
         let data = resp.json();

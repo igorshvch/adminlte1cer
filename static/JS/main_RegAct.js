@@ -1,5 +1,6 @@
 import {
     URL_COMPANY_SETTINGS,
+    URL_TASKLIST,
     API_REGISTRATION_ACTIVATION,
     redirectToNewPage
 } from './locations/locations.js'
@@ -33,6 +34,6 @@ fetch('.'+ API_REGISTRATION_ACTIVATION + u.search, {
         redirectToInfoPage(data)
     } else {
         STORAGE.setItem('token', data.token);
-        redirectToNewPage(URL_COMPANY_SETTINGS);
+        redirectToNewPage(URL_TASKLIST);
     }
 })
